@@ -2,7 +2,7 @@ backend:
   name: github
   repo: billgun/billgun.github.io
   branch: main
-  base_url: https://decap-oauth.YOUR-SUBDOMAIN.workers.dev
+  base_url: https://decap-oauth.billgun-dev.workers.dev
   auth_endpoint: auth
 
 publish_mode: simple
@@ -20,10 +20,31 @@ collections:
     format: "frontmatter"
     fields:
       - { label: "Title", name: "title", widget: "string" }
-      - { label: "Description", name: "description", widget: "text", required: false }
+      - {
+          label: "Description",
+          name: "description",
+          widget: "text",
+          required: false,
+        }
       - { label: "Publish Date", name: "pubDate", widget: "datetime" }
-      - { label: "Updated Date", name: "updatedDate", widget: "datetime", required: false }
-      - { label: "Hero Image", name: "heroImage", widget: "image", required: false }
+      - {
+          label: "Updated Date",
+          name: "updatedDate",
+          widget: "datetime",
+          required: false,
+        }
+      - {
+          label: "Hero Image",
+          name: "heroImage",
+          widget: "image",
+          required: false,
+        }
       - { label: "Tags", name: "tags", widget: "list", required: false }
-      - { label: "Draft", name: "draft", widget: "boolean", default: false, required: false }
+      - {
+          label: "Draft",
+          name: "draft",
+          widget: "boolean",
+          default: false,
+          required: false,
+        }
       - { label: "Body", name: "body", widget: "markdown" }
