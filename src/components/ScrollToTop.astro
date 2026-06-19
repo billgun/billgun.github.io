@@ -1,0 +1,29 @@
+<button
+  id="scroll-top-btn"
+  aria-label="Scroll to top"
+  class="border-ink bg-yellow shadow-pop pointer-events-none fixed right-7 bottom-7 z-60 flex h-13 w-13 translate-y-2.5 cursor-pointer items-center justify-center rounded-full border-[3px] text-[1.3rem] font-bold opacity-0 transition-all hover:-translate-y-0.5"
+>
+  ↑
+</button>
+
+<script>
+  const btn = document.getElementById("scroll-top-btn");
+
+  const toggleVisibility = () => {
+    if (!btn) return;
+
+    const shouldShow = window.scrollY > 400;
+
+    btn.classList.toggle("opacity-0", !shouldShow);
+    btn.classList.toggle("pointer-events-none", !shouldShow);
+    btn.classList.toggle("translate-y-2.5", !shouldShow);
+    btn.classList.toggle("opacity-100", shouldShow);
+  };
+
+  window.addEventListener("scroll", toggleVisibility, { passive: true });
+  toggleVisibility();
+
+  btn?.addEventListener("click", () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+</script>

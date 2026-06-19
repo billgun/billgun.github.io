@@ -1,46 +1,57 @@
 ---
-import Layout from '../../layouts/Layout.astro';
-import Header from '../../components/Header.astro';
-import Footer from '../../components/Footer.astro';
-import { getCollection } from 'astro:content';
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
+import { getCollection } from "astro:content";
 
-const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
-  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+const posts = (await getCollection("blog", ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
 );
 ---
 
-<Layout title="Blog — Bill Gunawan" description="Writing on web dev, projects, and things I'm learning.">
+<Layout
+  title="Blog — Bill Gunawan"
+  description="Writing on web dev, projects, and things I'm learning."
+>
   <Header />
   <section class="blog-hero">
     <div class="container">
       <p class="eyebrow">Writing</p>
       <h1 class="section-title">Blog</h1>
-      <p class="section-sub">Notes on projects, code, and whatever else I'm into lately.</p>
+      <p class="section-sub">
+        Notes on projects, code, and whatever else I'm into lately.
+      </p>
     </div>
   </section>
   <section class="blog-list">
     <div class="container">
       {posts.length === 0 && <p>No posts yet — check back soon!</p>}
       <div class="posts-grid">
-        {posts.map((post) => {
-          const date = post.data.pubDate.toLocaleDateString('en-US', {
-            year: 'numeric',
-            month: 'short',
-            day: 'numeric',
-          });
-          return (
-            <a href={`/blog/${post.id}`} class="post-card">
-              <p class="post-card-date">{date}</p>
-              <h2>{post.data.title}</h2>
-              {post.data.description && <p class="post-card-desc">{post.data.description}</p>}
-              {post.data.tags && (
-                <div class="post-card-tags">
-                  {post.data.tags.map((t: string) => <span class="tag">{t}</span>)}
-                </div>
-              )}
-            </a>
-          );
-        })}
+        {
+          posts.map((post) => {
+            const date = post.data.pubDate.toLocaleDateString("en-US", {
+              year: "numeric",
+              month: "short",
+              day: "numeric",
+            });
+            return (
+              <a href={`/blog/${post.id}`} class="post-card">
+                <p class="post-card-date">{date}</p>
+                <h2>{post.data.title}</h2>
+                {post.data.description && (
+                  <p class="post-card-desc">{post.data.description}</p>
+                )}
+                {post.data.tags && (
+                  <div class="post-card-tags">
+                    {post.data.tags.map((t: string) => (
+                      <span class="tag">{t}</span>
+                    ))}
+                  </div>
+                )}
+              </a>
+            );
+          })
+        }
       </div>
     </div>
   </section>

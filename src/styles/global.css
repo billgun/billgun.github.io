@@ -25,14 +25,14 @@ html {
 }
 
 body {
-  @apply m-0 bg-bg text-ink font-body leading-relaxed overflow-x-hidden;
+  @apply bg-bg text-ink font-body m-0 overflow-x-hidden leading-relaxed;
 }
 
 h1,
 h2,
 h3,
 h4 {
-  @apply font-heading leading-tight m-0;
+  @apply font-heading m-0 leading-tight;
 }
 
 a {
@@ -40,11 +40,11 @@ a {
 }
 
 img {
-  @apply max-w-full block;
+  @apply block max-w-full;
 }
 
 .container {
-  @apply max-w-[1100px] mx-auto px-6;
+  @apply mx-auto max-w-[1100px] px-6;
 }
 
 section {
@@ -52,19 +52,19 @@ section {
 }
 
 .eyebrow {
-  @apply inline-block font-bold text-[0.85rem] tracking-wide uppercase text-purple bg-[#f1ebff] px-3.5 py-1.5 rounded-full mb-4;
+  @apply text-purple mb-4 inline-block rounded-full bg-[#f1ebff] px-3.5 py-1.5 text-[0.85rem] font-bold tracking-wide uppercase;
 }
 
 .section-title {
-  @apply text-[clamp(2rem,4vw,2.8rem)] mb-4;
+  @apply mb-4 text-[clamp(2rem,4vw,2.8rem)];
 }
 
 .section-sub {
-  @apply max-w-[600px] text-[#5c5470] text-[1.05rem] mb-12;
+  @apply mb-12 max-w-[600px] text-[1.05rem] text-[#5c5470];
 }
 
 .btn {
-  @apply inline-flex items-center gap-2 font-bold px-7 py-3.5 rounded-full border-[3px] border-ink bg-yellow shadow-[var(--shadow-pop)] transition-all cursor-pointer;
+  @apply border-ink bg-yellow inline-flex cursor-pointer items-center gap-2 rounded-full border-[3px] px-7 py-3.5 font-bold shadow-[var(--shadow-pop)] transition-all;
 }
 
 .btn:hover {
@@ -76,5 +76,5 @@ section {
 }
 
 .blob {
-  @apply absolute rounded-full opacity-60 z-0;
+  @apply absolute z-0 rounded-full opacity-60;
 }

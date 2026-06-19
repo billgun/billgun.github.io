@@ -1,27 +1,9 @@
 ---
 const year = new Date().getFullYear();
 ---
-<footer class="footer">
-  <div class="container footer-inner">
-    <span>© {year} Bill Gunawan. Built with Astro 🚀</span>
-    <a href="#hero" class="back-top">Back to top ↑</a>
+
+<footer class="border-ink border-t-[3px] py-7">
+  <div class="container text-[0.9rem] text-[#5c5470]">
+    <span>© {year} Billy Gunawan. Built with Astro 🚀</span>
   </div>
 </footer>
-
-<style>
-  .footer {
-    border-top: 3px solid var(--color-ink);
-    padding: 28px 0;
-  }
-  .footer-inner {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 10px;
-    font-size: 0.9rem;
-    color: #5c5470;
-  }
-  .back-top:hover {
-    color: var(--color-purple);
-  }
-</style>

@@ -1,0 +1,33 @@
+---
+const links = [
+  { label: "Twitch", href: "https://twitch.tv/your-handle", icon: "🟣" },
+  { label: "YouTube", href: "https://youtube.com/@your-handle", icon: "🔴" },
+];
+---
+
+<section id="gaming" class="relative overflow-hidden">
+  <div class="blob bg-teal -top-12 -right-10 h-60 w-60" style="opacity: 0.3;">
+  </div>
+
+  <div class="relative z-10 container max-w-[680px]">
+    <p class="eyebrow">When I'm not coding</p>
+
+    <h2 class="section-title">I'm probably gaming or live on stream 🎮</h2>
+
+    <p class="section-sub">
+      Been gaming way longer than I've been writing code. These days I split my
+      free time between ranked grinds and streaming for fun — same focus,
+      different keyboard shortcuts.
+    </p>
+
+    <div class="flex flex-wrap gap-3.5">
+      {
+        links.map((l) => (
+          <a href={l.href} target="_blank" rel="noopener" class="btn secondary">
+            <span>{l.icon}</span> {l.label}
+          </a>
+        ))
+      }
+    </div>
+  </div>
+</section>

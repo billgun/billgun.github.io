@@ -1,66 +1,44 @@
 ---
 const skills = [
-  { name: 'JavaScript / TypeScript', icon: '🟨' },
-  { name: 'React', icon: '⚛️' },
-  { name: 'Astro', icon: '🚀' },
-  { name: 'Node.js', icon: '🟢' },
-  { name: 'HTML & CSS', icon: '🎨' },
-  { name: 'Tailwind CSS', icon: '🌊' },
-  { name: 'Git & GitHub', icon: '🐙' },
-  { name: 'SQL / Databases', icon: '🗄️' },
-  { name: 'REST APIs', icon: '🔌' },
+  { name: "JavaScript / TypeScript", icon: "🟨" },
+  { name: "Next.js / React", icon: "⚛️" },
+  { name: "Node.js / Express.js", icon: "🟢" },
+  { name: "Java", icon: "☕" },
+  { name: "Tailwind CSS / SCSS", icon: "🎨" },
+  { name: "MongoDB / PostgreSQL / MySQL", icon: "🗄️" },
+  { name: "Supabase / AWS S3", icon: "☁️" },
+  { name: "WebSocket", icon: "🔌" },
+  { name: "Turborepo / Monorepo", icon: "📦" },
+  { name: "Git & CI/CD", icon: "🐙" },
+  { name: "Figma to code", icon: "🎯" },
+  { name: "Trading APIs (Alpaca, TradingView, Polygon.io)", icon: "📈" },
 ];
-const colors = ['var(--color-coral)', 'var(--color-teal)', 'var(--color-purple)', 'var(--color-yellow)'];
+const colors = [
+  "border-coral",
+  "border-teal",
+  "border-purple",
+  "border-yellow",
+];
 ---
 
-<section id="skills" class="skills">
+<section id="skills">
   <div class="container">
     <p class="eyebrow">What I work with</p>
     <h2 class="section-title">Tools & technologies</h2>
-    <p class="section-sub">The stack I reach for most often when building things.</p>
-    <div class="skills-grid">
-      {skills.map((skill, i) => (
-        <div class="skill-card" style={`border-color: ${colors[i % colors.length]}`}>
-          <span class="skill-icon">{skill.icon}</span>
-          <span>{skill.name}</span>
-        </div>
-      ))}
+    <p class="section-sub">
+      The stack I reach for most often when building things.
+    </p>
+    <div class="grid grid-cols-1 gap-[18px] sm:grid-cols-2 md:grid-cols-3">
+      {
+        skills.map((skill, i) => (
+          <div
+            class={`flex items-center gap-3 border-[3px] px-5 py-[18px] ${colors[i % colors.length]} shadow-pop rounded-2xl bg-white font-semibold transition-transform hover:-translate-y-1`}
+          >
+            <span class="text-[1.4rem]">{skill.icon}</span>
+            <span>{skill.name}</span>
+          </div>
+        ))
+      }
     </div>
   </div>
 </section>
-
-<style>
-  .skills-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 18px;
-  }
-  .skill-card {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 18px 20px;
-    border: 3px solid var(--color-ink);
-    border-radius: 14px;
-    font-weight: 600;
-    background: #fff;
-    box-shadow: var(--shadow-pop);
-    transition: transform 0.15s ease;
-  }
-  .skill-card:hover {
-    transform: translateY(-4px);
-  }
-  .skill-icon {
-    font-size: 1.4rem;
-  }
-  @media (max-width: 700px) {
-    .skills-grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  }
-  @media (max-width: 460px) {
-    .skills-grid {
-      grid-template-columns: 1fr;
-    }
-  }
-</style>

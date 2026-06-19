@@ -1,124 +1,83 @@
 ---
 const projects = [
   {
-    title: 'Project One',
-    description: 'A short description of what this project does and the problem it solves.',
-    tags: ['React', 'Node.js', 'PostgreSQL'],
-    color: 'var(--color-yellow)',
-    emoji: '🛒',
-    link: '#',
-    repo: '#',
+    title: "Project One",
+    description:
+      "A short description of what this project does and the problem it solves.",
+    tags: ["React", "Node.js", "PostgreSQL"],
+    color: "bg-yellow",
+    emoji: "🛒",
+    link: "#",
+    repo: "#",
   },
   {
-    title: 'Project Two',
-    description: 'A short description of what this project does and the problem it solves.',
-    tags: ['Astro', 'Tailwind'],
-    color: 'var(--color-teal)',
-    emoji: '📊',
-    link: '#',
-    repo: '#',
+    title: "Project Two",
+    description:
+      "A short description of what this project does and the problem it solves.",
+    tags: ["Astro", "Tailwind"],
+    color: "bg-teal",
+    emoji: "📊",
+    link: "#",
+    repo: "#",
   },
   {
-    title: 'Project Three',
-    description: 'A short description of what this project does and the problem it solves.',
-    tags: ['TypeScript', 'API'],
-    color: 'var(--color-pink)',
-    emoji: '🎮',
-    link: '#',
-    repo: '#',
+    title: "Project Three",
+    description:
+      "A short description of what this project does and the problem it solves.",
+    tags: ["TypeScript", "API"],
+    color: "bg-pink",
+    emoji: "🎮",
+    link: "#",
+    repo: "#",
   },
 ];
 ---
 
-<section id="projects" class="projects">
+<section id="projects">
   <div class="container">
     <p class="eyebrow">Selected work</p>
+
     <h2 class="section-title">Projects I'm proud of</h2>
+
     <p class="section-sub">
-      Replace these with your real projects — name, description, tags, and links.
+      Replace these with your real projects — name, description, tags, and
+      links.
     </p>
-    <div class="projects-grid">
-      {projects.map((p) => (
-        <div class="project-card">
-          <div class="project-thumb" style={`background:${p.color}`}>{p.emoji}</div>
-          <h3>{p.title}</h3>
-          <p>{p.description}</p>
-          <div class="tags">
-            {p.tags.map((t) => <span class="tag">{t}</span>)}
+
+    <div class="grid grid-cols-1 gap-6 md:grid-cols-3">
+      {
+        projects.map((p) => (
+          <div class="border-ink rounded-card shadow-pop border-[3px] bg-white p-5 transition-transform hover:-translate-y-1.5">
+            <div
+              class={`border-ink mb-4 flex h-[140px] w-full items-center justify-center rounded-xl border-[3px] text-5xl ${p.color}`}
+            >
+              {p.emoji}
+            </div>
+
+            <h3 class="mb-2 text-[1.25rem]">{p.title}</h3>
+
+            <p class="mb-4 text-[0.95rem] text-[#5c5470]">{p.description}</p>
+
+            <div class="mb-4 flex flex-wrap gap-2">
+              {p.tags.map((t) => (
+                <span class="text-purple rounded-full bg-[#f1ebff] px-2.5 py-1 text-[0.78rem] font-bold">
+                  {t}
+                </span>
+              ))}
+            </div>
+
+            <div class="flex gap-4 text-[0.9rem] font-bold">
+              <a href={p.link} class="hover:text-coral transition-colors">
+                Live demo →
+              </a>
+
+              <a href={p.repo} class="hover:text-coral transition-colors">
+                Code →
+              </a>
+            </div>
           </div>
-          <div class="project-links">
-            <a href={p.link}>Live demo →</a>
-            <a href={p.repo}>Code →</a>
-          </div>
-        </div>
-      ))}
+        ))
+      }
     </div>
   </div>
 </section>
-
-<style>
-  .projects-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 26px;
-  }
-  .project-card {
-    border: 3px solid var(--color-ink);
-    border-radius: var(--radius-card);
-    background: #fff;
-    padding: 22px;
-    box-shadow: var(--shadow-pop);
-    transition: transform 0.15s ease;
-  }
-  .project-card:hover {
-    transform: translateY(-5px);
-  }
-  .project-thumb {
-    width: 100%;
-    height: 140px;
-    border-radius: 12px;
-    border: 3px solid var(--color-ink);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 3rem;
-    margin-bottom: 18px;
-  }
-  .project-card h3 {
-    font-size: 1.25rem;
-    margin-bottom: 8px;
-  }
-  .project-card p {
-    color: #5c5470;
-    font-size: 0.95rem;
-    margin-bottom: 16px;
-  }
-  .tags {
-    display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
-    margin-bottom: 18px;
-  }
-  .tag {
-    font-size: 0.78rem;
-    font-weight: 700;
-    background: #f1ebff;
-    color: var(--color-purple);
-    padding: 4px 10px;
-    border-radius: 999px;
-  }
-  .project-links {
-    display: flex;
-    gap: 16px;
-    font-weight: 700;
-    font-size: 0.9rem;
-  }
-  .project-links a:hover {
-    color: var(--color-coral);
-  }
-  @media (max-width: 900px) {
-    .projects-grid {
-      grid-template-columns: 1fr;
-    }
-  }
-</style>

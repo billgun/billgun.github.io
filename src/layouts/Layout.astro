@@ -1,5 +1,6 @@
 ---
-import '../styles/global.css';
+import ScrollToTop from "@/components/ScrollToTop.astro";
+import "../styles/global.css";
 
 interface Props {
   title?: string;
@@ -7,8 +8,8 @@ interface Props {
 }
 
 const {
-  title = 'Bill Gunawan — Software Developer',
-  description = 'Portfolio of Bill Gunawan, a software & web developer building fun, fast, and functional things.',
+  title = "Bill Gunawan — Software Developer",
+  description = "Portfolio of Bill Gunawan, a software & web developer building fun, fast, and functional things.",
 } = Astro.props;
 ---
 
@@ -29,5 +30,6 @@ const {
   </head>
   <body>
     <slot />
+    <ScrollToTop />
   </body>
 </html>

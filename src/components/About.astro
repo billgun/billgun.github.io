@@ -1,81 +1,59 @@
 ---
+
 ---
-<section id="about" class="about">
-  <div class="container about-grid">
-    <div class="about-photo">
-      <div class="photo-frame">🧑‍💻</div>
+
+<section id="about">
+  <div
+    class="container grid grid-cols-1 items-start gap-15 md:grid-cols-[280px_1fr]"
+  >
+    <div
+      class="rounded-card border-ink bg-pink shadow-pop flex aspect-square w-full max-w-[220px] items-center justify-center border-[3px] text-5xl md:max-w-none"
+    >
+      🧑‍💻
     </div>
+
     <div>
       <p class="eyebrow">About me</p>
-      <h2 class="section-title">A little about how I got here</h2>
-      <p class="about-text">
-        I'm a software & web developer who enjoys the whole process —
-        sketching an idea, wiring up the logic, and polishing the pixels
-        until it feels right. I care about clean code, fast load times,
-        and interfaces that don't feel like a chore to use.
+
+      <h2 class="section-title">
+        Results-driven, AI-assisted, slightly caffeinated
+      </h2>
+
+      <p class="mb-4 max-w-[560px] text-[#5c5470]">
+        I'm a software engineer with 6 years of experience designing and
+        shipping full-stack products — from real-time stock trading platforms to
+        internal CMS tools and monorepo migrations. I lean heavily on
+        AI-assisted workflows to move faster without cutting corners, and I
+        enjoy untangling gnarly technical problems as much as I enjoy shipping
+        clean, maintainable code.
       </p>
-      <p class="about-text">
-        When I'm not coding, I'm probably exploring new tools, tinkering
-        with side projects, or hunting for the next thing to learn.
+
+      <p class="mb-4 max-w-[560px] text-[#5c5470]">
+        Off the clock, I'm probably deep in a ranked queue or live on stream.
+        Gaming taught me patience and pattern recognition long before I learned
+        to debug a race condition — turns out both skills transfer pretty well.
       </p>
-      <div class="about-facts">
-        <div class="fact"><strong>3+</strong><span>years coding</span></div>
-        <div class="fact"><strong>15+</strong><span>projects shipped</span></div>
-        <div class="fact"><strong>∞</strong><span>cups of coffee</span></div>
+
+      <div class="mt-7 flex flex-wrap gap-9">
+        <div class="flex flex-col">
+          <strong class="font-heading text-purple text-[1.8rem]">6+</strong>
+          <span class="text-[0.85rem] text-[#8a8298]">years engineering</span>
+        </div>
+
+        <div class="flex flex-col">
+          <strong class="font-heading text-purple text-[1.8rem]">4</strong>
+          <span class="text-[0.85rem] text-[#8a8298]"
+            >companies &amp; teams</span
+          >
+        </div>
+
+        <div class="flex flex-col">
+          <strong class="font-heading text-purple text-[1.8rem]">🎮</strong>
+          <span class="text-[0.85rem] text-[#8a8298]"
+            >full-time gamer energy</span
+          >
+        </div>
       </div>
     </div>
   </div>
 </section>
-
-<style>
-  .about-grid {
-    display: grid;
-    grid-template-columns: 280px 1fr;
-    gap: 60px;
-    align-items: start;
-  }
-  .photo-frame {
-    width: 100%;
-    aspect-ratio: 1;
-    border-radius: var(--radius-card);
-    border: 3px solid var(--color-ink);
-    background: var(--color-pink);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 5rem;
-    box-shadow: var(--shadow-pop);
-  }
-  .about-text {
-    color: #5c5470;
-    margin-bottom: 16px;
-    max-width: 560px;
-  }
-  .about-facts {
-    display: flex;
-    gap: 36px;
-    margin-top: 28px;
-    flex-wrap: wrap;
-  }
-  .fact {
-    display: flex;
-    flex-direction: column;
-  }
-  .fact strong {
-    font-family: var(--font-heading);
-    font-size: 1.8rem;
-    color: var(--color-purple);
-  }
-  .fact span {
-    font-size: 0.85rem;
-    color: #8a8298;
-  }
-  @media (max-width: 700px) {
-    .about-grid {
-      grid-template-columns: 1fr;
-    }
-    .photo-frame {
-      max-width: 220px;
-    }
-  }
-</style>
