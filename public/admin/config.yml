@@ -2,7 +2,7 @@ backend:
   name: github
   repo: billgun/billgun.github.io
   branch: main
-  base_url: https://decap-oauth.billgun-dev.workers.dev
+  base_url: https://decap-proxy.billgun.workers.dev
   auth_endpoint: auth
 
 publish_mode: simple
