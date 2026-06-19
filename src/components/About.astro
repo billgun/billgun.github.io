@@ -1,0 +1,81 @@
+---
+---
+<section id="about" class="about">
+  <div class="container about-grid">
+    <div class="about-photo">
+      <div class="photo-frame">🧑‍💻</div>
+    </div>
+    <div>
+      <p class="eyebrow">About me</p>
+      <h2 class="section-title">A little about how I got here</h2>
+      <p class="about-text">
+        I'm a software & web developer who enjoys the whole process —
+        sketching an idea, wiring up the logic, and polishing the pixels
+        until it feels right. I care about clean code, fast load times,
+        and interfaces that don't feel like a chore to use.
+      </p>
+      <p class="about-text">
+        When I'm not coding, I'm probably exploring new tools, tinkering
+        with side projects, or hunting for the next thing to learn.
+      </p>
+      <div class="about-facts">
+        <div class="fact"><strong>3+</strong><span>years coding</span></div>
+        <div class="fact"><strong>15+</strong><span>projects shipped</span></div>
+        <div class="fact"><strong>∞</strong><span>cups of coffee</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .about-grid {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 60px;
+    align-items: start;
+  }
+  .photo-frame {
+    width: 100%;
+    aspect-ratio: 1;
+    border-radius: var(--radius);
+    border: 3px solid var(--color-text);
+    background: var(--color-pink);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 5rem;
+    box-shadow: var(--shadow);
+  }
+  .about-text {
+    color: #5c5470;
+    margin-bottom: 16px;
+    max-width: 560px;
+  }
+  .about-facts {
+    display: flex;
+    gap: 36px;
+    margin-top: 28px;
+    flex-wrap: wrap;
+  }
+  .fact {
+    display: flex;
+    flex-direction: column;
+  }
+  .fact strong {
+    font-family: var(--font-heading);
+    font-size: 1.8rem;
+    color: var(--color-purple);
+  }
+  .fact span {
+    font-size: 0.85rem;
+    color: #8a8298;
+  }
+  @media (max-width: 700px) {
+    .about-grid {
+      grid-template-columns: 1fr;
+    }
+    .photo-frame {
+      max-width: 220px;
+    }
+  }
+</style>

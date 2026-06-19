@@ -1,0 +1,66 @@
+---
+const skills = [
+  { name: 'JavaScript / TypeScript', icon: '🟨' },
+  { name: 'React', icon: '⚛️' },
+  { name: 'Astro', icon: '🚀' },
+  { name: 'Node.js', icon: '🟢' },
+  { name: 'HTML & CSS', icon: '🎨' },
+  { name: 'Tailwind CSS', icon: '🌊' },
+  { name: 'Git & GitHub', icon: '🐙' },
+  { name: 'SQL / Databases', icon: '🗄️' },
+  { name: 'REST APIs', icon: '🔌' },
+];
+const colors = ['var(--color-coral)', 'var(--color-teal)', 'var(--color-purple)', 'var(--color-yellow)'];
+---
+
+<section id="skills" class="skills">
+  <div class="container">
+    <p class="eyebrow">What I work with</p>
+    <h2 class="section-title">Tools & technologies</h2>
+    <p class="section-sub">The stack I reach for most often when building things.</p>
+    <div class="skills-grid">
+      {skills.map((skill, i) => (
+        <div class="skill-card" style={`border-color: ${colors[i % colors.length]}`}>
+          <span class="skill-icon">{skill.icon}</span>
+          <span>{skill.name}</span>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+  }
+  .skill-card {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 18px 20px;
+    border: 3px solid var(--color-text);
+    border-radius: 14px;
+    font-weight: 600;
+    background: #fff;
+    box-shadow: var(--shadow);
+    transition: transform 0.15s ease;
+  }
+  .skill-card:hover {
+    transform: translateY(-4px);
+  }
+  .skill-icon {
+    font-size: 1.4rem;
+  }
+  @media (max-width: 700px) {
+    .skills-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  @media (max-width: 460px) {
+    .skills-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

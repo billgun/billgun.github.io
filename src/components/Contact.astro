@@ -1,0 +1,47 @@
+---
+const email = 'you@example.com';
+const socials = [
+  { label: 'GitHub', href: 'https://github.com/billgun' },
+  { label: 'LinkedIn', href: 'https://linkedin.com/in/your-handle' },
+  { label: 'Twitter / X', href: 'https://x.com/your-handle' },
+];
+---
+
+<section id="contact" class="contact">
+  <div class="blob" style="background: var(--color-purple); width: 260px; height: 260px; top: -60px; left: 40%; opacity: 0.25;"></div>
+  <div class="container contact-inner">
+    <p class="eyebrow">Let's talk</p>
+    <h2 class="section-title">Got a project in mind?</h2>
+    <p class="section-sub">
+      I'm always open to chatting about new opportunities, collabs, or just
+      tech in general. Drop me a message!
+    </p>
+    <div class="contact-actions">
+      <a href={`mailto:${email}`} class="btn">Email me ✉️</a>
+      {socials.map((s) => (
+        <a href={s.href} target="_blank" rel="noopener" class="btn secondary">{s.label}</a>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .contact {
+    text-align: center;
+  }
+  .contact-inner {
+    position: relative;
+    z-index: 1;
+    max-width: 640px;
+    margin: 0 auto;
+  }
+  .contact .section-sub {
+    margin: 0 auto 36px;
+  }
+  .contact-actions {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+</style>

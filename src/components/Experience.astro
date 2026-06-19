@@ -1,0 +1,88 @@
+---
+const items = [
+  {
+    role: 'Software Developer',
+    org: 'Company / Freelance',
+    period: '2024 — Present',
+    desc: 'Building and maintaining web applications, collaborating on features end-to-end.',
+  },
+  {
+    role: 'Web Developer Intern',
+    org: 'Company Name',
+    period: '2023 — 2024',
+    desc: 'Worked on front-end features and helped ship improvements to internal tools.',
+  },
+  {
+    role: 'Started learning to code',
+    org: 'Self-taught / Bootcamp / University',
+    period: '2022',
+    desc: 'Picked up the basics and got hooked on building things for the web.',
+  },
+];
+---
+
+<section id="experience" class="experience">
+  <div class="container">
+    <p class="eyebrow">Journey so far</p>
+    <h2 class="section-title">Experience</h2>
+    <p class="section-sub">A quick timeline of where I've been.</p>
+    <div class="timeline">
+      {items.map((item, i) => (
+        <div class="timeline-item">
+          <div class="dot"></div>
+          <div class="timeline-content">
+            <span class="period">{item.period}</span>
+            <h3>{item.role}</h3>
+            <p class="org">{item.org}</p>
+            <p class="desc">{item.desc}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .timeline {
+    position: relative;
+    padding-left: 30px;
+    border-left: 3px dashed var(--color-text);
+  }
+  .timeline-item {
+    position: relative;
+    margin-bottom: 40px;
+  }
+  .timeline-item:last-child {
+    margin-bottom: 0;
+  }
+  .dot {
+    position: absolute;
+    left: -39px;
+    top: 4px;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--color-coral);
+    border: 3px solid var(--color-text);
+  }
+  .period {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--color-purple);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .timeline-content h3 {
+    font-size: 1.2rem;
+    margin: 6px 0 2px;
+  }
+  .org {
+    font-weight: 600;
+    color: #5c5470;
+    margin-bottom: 8px;
+  }
+  .desc {
+    color: #5c5470;
+    max-width: 520px;
+  }
+</style>

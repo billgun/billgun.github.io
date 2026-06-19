@@ -1,0 +1,56 @@
+---
+---
+<section class="hero" id="hero">
+  <div class="blob blob-1" style="background: var(--color-yellow); width: 320px; height: 320px; top: -80px; right: -60px;"></div>
+  <div class="blob blob-2" style="background: var(--color-teal); width: 220px; height: 220px; bottom: -40px; left: -60px;"></div>
+  <div class="container hero-inner">
+    <p class="eyebrow">👋 Hey, I'm Bill</p>
+    <h1 class="hero-title">
+      I build <span class="hl">playful</span>, fast<br />
+      web stuff that <span class="hl-2">works</span>.
+    </h1>
+    <p class="hero-sub">
+      Software & web developer who loves turning ideas into clean,
+      colorful, functional products — from front-end interfaces to
+      full-stack apps.
+    </p>
+    <div class="hero-actions">
+      <a href="#projects" class="btn">See my work 🚀</a>
+      <a href="#contact" class="btn secondary">Get in touch</a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    padding-top: 120px;
+    padding-bottom: 100px;
+    overflow: hidden;
+  }
+  .hero-inner {
+    position: relative;
+    z-index: 1;
+    max-width: 720px;
+  }
+  .hero-title {
+    font-size: clamp(2.4rem, 6vw, 4rem);
+    margin-bottom: 24px;
+  }
+  .hl {
+    color: var(--color-coral);
+  }
+  .hl-2 {
+    color: var(--color-purple);
+  }
+  .hero-sub {
+    font-size: 1.15rem;
+    color: #5c5470;
+    max-width: 520px;
+    margin-bottom: 36px;
+  }
+  .hero-actions {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+</style>

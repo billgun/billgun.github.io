@@ -1,0 +1,102 @@
+---
+const links = [
+  { href: '/#about', label: 'About' },
+  { href: '/#skills', label: 'Skills' },
+  { href: '/#projects', label: 'Projects' },
+  { href: '/#experience', label: 'Experience' },
+  { href: '/blog', label: 'Blog' },
+  { href: '/#contact', label: 'Contact' },
+];
+---
+
+<header class="header">
+  <div class="container header-inner">
+    <a href="#" class="logo">bill<span>.dev</span></a>
+    <nav class="nav">
+      {links.map((link) => (
+        <a href={link.href}>{link.label}</a>
+      ))}
+    </nav>
+    <a href="#contact" class="btn nav-cta">Say hi 👋</a>
+    <button class="menu-btn" id="menu-btn" aria-label="Open menu">☰</button>
+  </div>
+  <nav class="mobile-nav" id="mobile-nav">
+    {links.map((link) => (
+      <a href={link.href}>{link.label}</a>
+    ))}
+  </nav>
+</header>
+
+<style>
+  .header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(255, 250, 240, 0.85);
+    backdrop-filter: blur(8px);
+    border-bottom: 3px solid var(--color-text);
+  }
+  .header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 24px;
+  }
+  .logo {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 1.3rem;
+  }
+  .logo span {
+    color: var(--color-coral);
+  }
+  .nav {
+    display: flex;
+    gap: 28px;
+    font-weight: 600;
+  }
+  .nav a:hover {
+    color: var(--color-purple);
+  }
+  .nav-cta {
+    padding: 10px 20px;
+    font-size: 0.9rem;
+  }
+  .menu-btn {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+  }
+  .mobile-nav {
+    display: none;
+    flex-direction: column;
+    padding: 16px 24px 22px;
+    gap: 14px;
+    font-weight: 600;
+    border-top: 2px dashed var(--color-text);
+  }
+  .mobile-nav.open {
+    display: flex;
+  }
+  @media (max-width: 760px) {
+    .nav, .nav-cta {
+      display: none;
+    }
+    .menu-btn {
+      display: block;
+    }
+  }
+</style>
+
+<script>
+  const btn = document.getElementById('menu-btn');
+  const nav = document.getElementById('mobile-nav');
+  btn?.addEventListener('click', () => {
+    nav?.classList.toggle('open');
+  });
+  nav?.querySelectorAll('a').forEach((a) =>
+    a.addEventListener('click', () => nav.classList.remove('open'))
+  );
+</script>

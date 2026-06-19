@@ -1,0 +1,27 @@
+---
+const year = new Date().getFullYear();
+---
+<footer class="footer">
+  <div class="container footer-inner">
+    <span>© {year} Bill Gunawan. Built with Astro 🚀</span>
+    <a href="#hero" class="back-top">Back to top ↑</a>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    border-top: 3px solid var(--color-text);
+    padding: 28px 0;
+  }
+  .footer-inner {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+    font-size: 0.9rem;
+    color: #5c5470;
+  }
+  .back-top:hover {
+    color: var(--color-purple);
+  }
+</style>
