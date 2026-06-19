@@ -61,11 +61,11 @@ const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
   }
   .post-card {
     display: block;
-    border: 3px solid var(--color-text);
-    border-radius: var(--radius);
+    border: 3px solid var(--color-ink);
+    border-radius: var(--radius-card);
     background: #fff;
     padding: 26px 28px;
-    box-shadow: var(--shadow);
+    box-shadow: var(--shadow-pop);
     transition: transform 0.15s ease;
   }
   .post-card:hover {

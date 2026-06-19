@@ -1,20 +1,23 @@
-:root {
+@import "tailwindcss";
+
+@theme {
+  /* Brand palette — same values as before, now as Tailwind tokens */
   --color-bg: #fffaf0;
-  --color-text: #1f1633;
+  --color-ink: #1f1633; /* was --color-text */
   --color-coral: #ff6b6b;
   --color-yellow: #ffd93d;
   --color-teal: #4ecdc4;
   --color-purple: #845ef7;
   --color-pink: #ff8fab;
-  --radius: 20px;
-  --max-width: 1100px;
-  --shadow: 0 8px 0 rgba(31, 22, 51, 0.08);
-  --font-heading: 'Space Grotesk', system-ui, sans-serif;
-  --font-body: 'Inter', system-ui, sans-serif;
-}
 
-* {
-  box-sizing: border-box;
+  /* Fonts */
+  --font-heading: "Space Grotesk", system-ui, sans-serif;
+  --font-body: "Inter", system-ui, sans-serif;
+
+  /* Shared tokens */
+  --radius-card: 20px;
+  --shadow-pop: 0 8px 0 rgba(31, 22, 51, 0.08);
+  --shadow-pop-hover: 0 11px 0 rgba(31, 22, 51, 0.08);
 }
 
 html {
@@ -22,99 +25,56 @@ html {
 }
 
 body {
-  margin: 0;
-  background: var(--color-bg);
-  color: var(--color-text);
-  font-family: var(--font-body);
-  line-height: 1.6;
-  overflow-x: hidden;
+  @apply m-0 bg-bg text-ink font-body leading-relaxed overflow-x-hidden;
 }
 
-h1, h2, h3, h4 {
-  font-family: var(--font-heading);
-  line-height: 1.15;
-  margin: 0;
+h1,
+h2,
+h3,
+h4 {
+  @apply font-heading leading-tight m-0;
 }
 
 a {
-  color: inherit;
-  text-decoration: none;
+  @apply text-inherit no-underline;
 }
 
 img {
-  max-width: 100%;
-  display: block;
+  @apply max-w-full block;
 }
 
 .container {
-  max-width: var(--max-width);
-  margin: 0 auto;
-  padding: 0 24px;
+  @apply max-w-[1100px] mx-auto px-6;
 }
 
 section {
-  position: relative;
-  padding: 100px 0;
+  @apply relative py-24 md:py-[100px];
 }
 
 .eyebrow {
-  display: inline-block;
-  font-weight: 700;
-  font-size: 0.85rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--color-purple);
-  background: #f1ebff;
-  padding: 6px 14px;
-  border-radius: 999px;
-  margin-bottom: 18px;
+  @apply inline-block font-bold text-[0.85rem] tracking-wide uppercase text-purple bg-[#f1ebff] px-3.5 py-1.5 rounded-full mb-4;
 }
 
 .section-title {
-  font-size: clamp(2rem, 4vw, 2.8rem);
-  margin-bottom: 16px;
+  @apply text-[clamp(2rem,4vw,2.8rem)] mb-4;
 }
 
 .section-sub {
-  max-width: 600px;
-  color: #5c5470;
-  font-size: 1.05rem;
-  margin-bottom: 50px;
+  @apply max-w-[600px] text-[#5c5470] text-[1.05rem] mb-12;
 }
 
 .btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  font-weight: 700;
-  padding: 14px 28px;
-  border-radius: 999px;
-  border: 3px solid var(--color-text);
-  background: var(--color-yellow);
-  box-shadow: var(--shadow);
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
-  cursor: pointer;
+  @apply inline-flex items-center gap-2 font-bold px-7 py-3.5 rounded-full border-[3px] border-ink bg-yellow shadow-[var(--shadow-pop)] transition-all cursor-pointer;
 }
 
 .btn:hover {
-  transform: translate(-2px, -3px);
-  box-shadow: 0 11px 0 rgba(31, 22, 51, 0.08);
+  @apply -translate-x-0.5 -translate-y-[3px] shadow-[var(--shadow-pop-hover)];
 }
 
 .btn.secondary {
-  background: transparent;
+  @apply bg-transparent;
 }
 
 .blob {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(0px);
-  z-index: 0;
-  opacity: 0.6;
-}
-
-@media (max-width: 720px) {
-  section {
-    padding: 70px 0;
-  }
+  @apply absolute rounded-full opacity-60 z-0;
 }
