@@ -48,3 +48,58 @@ collections:
           required: false,
         }
       - { label: "Body", name: "body", widget: "markdown" }
+
+  - name: "games"
+    label: "Games"
+    folder: "src/content/games"
+    create: true
+    delete: true
+    slug: "{{slug}}"
+    extension: "md"
+    format: "frontmatter"
+    summary: "{{title}} — {{status}}"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - {
+          label: "RAWG Slug",
+          name: "rawgSlug",
+          widget: "string",
+          hint: "From the game's rawg.io URL, e.g. rawg.io/games/elden-ring -> elden-ring",
+        }
+      - {
+          label: "Status",
+          name: "status",
+          widget: "select",
+          options:
+            [
+              { label: "Currently Playing", value: "playing" },
+              { label: "Finished", value: "finished" },
+              { label: "Dropped", value: "dropped" },
+            ],
+        }
+      - {
+          label: "Rating (out of 10)",
+          name: "rating",
+          widget: "number",
+          min: 1,
+          max: 10,
+          required: false,
+        }
+      - {
+          label: "Started Date",
+          name: "startedDate",
+          widget: "datetime",
+          required: false,
+        }
+      - {
+          label: "Finished Date",
+          name: "finishedDate",
+          widget: "datetime",
+          required: false,
+        }
+      - {
+          label: "Review",
+          name: "body",
+          widget: "markdown",
+          hint: "Your personal thoughts/review of the game",
+        }

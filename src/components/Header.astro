@@ -1,18 +1,19 @@
 ---
 const links = [
   { href: "/", label: "Home" },
+  { href: "/beyond-the-code", label: "Beyond the Code" },
   { href: "/blog", label: "Blog" },
   { href: "/contact", label: "Contact" },
 ];
 ---
 
 <header
-  class="bg-bg/85 border-ink sticky top-0 z-50 border-b-[3px] backdrop-blur-md"
+  class="bg-bg/85 border-ink sticky top-0 z-50 border-b-[3px] backdrop-blur-sm"
 >
-  <div class="container flex items-center justify-between py-4">
-    <a href="/" class="font-heading text-[1.3rem] font-bold"
-      >billy<span class="text-coral">.dev</span></a
-    >
+  <div class="container flex items-center justify-between py-4.5">
+    <a href="/" class="font-heading text-[1.3rem] font-bold">
+      billy<span class="text-coral">.dev</span>
+    </a>
     <nav class="hidden gap-7 font-semibold md:flex">
       {
         links.map((link) => (
@@ -33,10 +34,16 @@ const links = [
     >
   </div>
   <nav
-    class="border-ink hidden flex-col gap-3.5 border-t-2 border-dashed px-6 pt-4 pb-5 font-semibold"
     id="mobile-nav"
+    class="border-ink hidden flex-col gap-3.5 border-t-2 border-dashed px-6 pt-4 pb-5 font-semibold md:hidden"
   >
-    {links.map((link) => <a href={link.href}>{link.label}</a>)}
+    {
+      links.map((link) => (
+        <a href={link.href} class="hover:text-purple transition-colors">
+          {link.label}
+        </a>
+      ))
+    }
   </nav>
 </header>
 
