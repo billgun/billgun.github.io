@@ -1,23 +1,59 @@
 ---
-const skills = [
-  { name: "JavaScript / TypeScript", icon: "🟨" },
-  { name: "Next.js / React", icon: "⚛️" },
-  { name: "Node.js / Express.js", icon: "🟢" },
-  { name: "Java", icon: "☕" },
-  { name: "Tailwind CSS / SCSS", icon: "🎨" },
-  { name: "MongoDB / PostgreSQL / MySQL", icon: "🗄️" },
-  { name: "Supabase / AWS S3", icon: "☁️" },
-  { name: "WebSocket", icon: "🔌" },
-  { name: "Turborepo / Monorepo", icon: "📦" },
-  { name: "Git & CI/CD", icon: "🐙" },
-  { name: "Figma to code", icon: "🎯" },
-  { name: "Trading APIs (Alpaca, TradingView, Polygon.io)", icon: "📈" },
-];
-const colors = [
-  "border-coral",
-  "border-teal",
-  "border-purple",
-  "border-yellow",
+import { Icon } from "astro-icon/components";
+
+const categories = [
+  {
+    label: "Languages",
+    color: "border-coral",
+    chip: "bg-coral",
+    skills: [
+      { name: "TypeScript", icon: "logos:typescript-icon" },
+      { name: "JavaScript", icon: "logos:javascript" },
+      { name: "Java", icon: "logos:java" },
+    ],
+  },
+  {
+    label: "Frameworks",
+    color: "border-teal",
+    chip: "bg-teal",
+    skills: [
+      { name: "Next.js", icon: "logos:nextjs-icon" },
+      { name: "React", icon: "logos:react" },
+      { name: "Angular", icon: "logos:angular-icon" },
+      { name: "Ionic", icon: "logos:ionic-icon" },
+      { name: "Node.js", icon: "logos:nodejs-icon" },
+      { name: "Express.js", icon: "logos:express" },
+      { name: "Tailwind CSS", icon: "logos:tailwindcss-icon" },
+      { name: "Material UI", icon: "logos:material-ui" },
+      { name: "Vite", icon: "logos:vitejs" },
+    ],
+  },
+  {
+    label: "Data & storage",
+    color: "border-purple",
+    chip: "bg-purple",
+    skills: [
+      { name: "MongoDB", icon: "logos:mongodb-icon" },
+      { name: "PostgreSQL", icon: "logos:postgresql" },
+      { name: "MySQL", icon: "logos:mysql-icon" },
+      { name: "Supabase", icon: "logos:supabase-icon" },
+      { name: "Firebase", icon: "logos:firebase" },
+      { name: "AWS S3", icon: "logos:aws-s3" },
+    ],
+  },
+  {
+    label: "Tools & platforms",
+    color: "border-yellow",
+    chip: "bg-yellow",
+    skills: [
+      { name: "Git", icon: "logos:git-icon" },
+      { name: "Turborepo", icon: "logos:turborepo-icon" },
+      { name: "Figma", icon: "logos:figma" },
+      { name: "WebSocket", icon: "logos:websocket" },
+      { name: "Sentry", icon: "logos:sentry-icon" },
+      { name: "AWS", icon: "logos:aws" },
+    ],
+  },
 ];
 ---
 
@@ -28,14 +64,26 @@ const colors = [
     <p class="section-sub">
       The stack I reach for most often when building things.
     </p>
-    <div class="grid grid-cols-1 gap-[18px] sm:grid-cols-2 md:grid-cols-3">
+
+    <div class="grid grid-cols-1 gap-5 md:grid-cols-2">
       {
-        skills.map((skill, i) => (
+        categories.map((cat) => (
           <div
-            class={`flex items-center gap-3 border-[3px] px-5 py-[18px] ${colors[i % colors.length]} shadow-pop rounded-2xl bg-white font-semibold transition-transform hover:-translate-y-1`}
+            class={`border-[3px] ${cat.color} rounded-card shadow-pop bg-white p-5`}
           >
-            <span class="text-[1.4rem]">{skill.icon}</span>
-            <span>{skill.name}</span>
+            <span
+              class={`mb-4 inline-block rounded-full px-3 py-1 text-[0.78rem] font-bold tracking-wide uppercase ${cat.chip} text-ink`}
+            >
+              {cat.label}
+            </span>
+            <div class="flex flex-col gap-3">
+              {cat.skills.map((skill) => (
+                <div class="flex items-center gap-3">
+                  <Icon name={skill.icon} class="h-6 w-6 shrink-0" />
+                  <span class="font-semibold">{skill.name}</span>
+                </div>
+              ))}
+            </div>
           </div>
         ))
       }

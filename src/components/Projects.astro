@@ -1,34 +1,91 @@
 ---
+import { Icon } from "astro-icon/components";
+
 const projects = [
   {
-    title: "Project One",
-    description:
-      "A short description of what this project does and the problem it solves.",
-    tags: ["React", "Node.js", "PostgreSQL"],
-    color: "bg-yellow",
-    emoji: "🛒",
-    link: "#",
-    repo: "#",
+    company: "PT. HFX Internasional Berjangka",
+    title: "Real-time stock trading platform",
+    role: "Fullstack Software Engineer",
+    accent: "border-l-coral",
+    challenge:
+      "Internal CMS, landing pages, and the trading platform needed faster load times and a consistent experience across devices for 1,000+ active users — while adding real-time price data into the product.",
+    built:
+      "Real-time trading features with WebSocket, Next.js, and Express.js, integrating live data from Alpaca, TradingView, and Polygon.io. Redesigned 2 landing pages — the stock trading app and the company site — and set up AWS S3 workflows for asset storage.",
+    impact:
+      "Faster, more consistent UI across the platform and less UI maintenance overhead going forward.",
+    stats: [
+      { value: "1,000+", label: "active users" },
+      { value: "2", label: "landing pages redesigned" },
+      { value: "30–40%", label: "faster dev turnaround (AI-assisted)" },
+    ],
+    stack: [
+      "Next.js",
+      "Express.js",
+      "MongoDB",
+      "WebSocket",
+      "AWS S3",
+      "SCSS",
+      "Tailwind CSS",
+      "Vite",
+    ],
   },
   {
-    title: "Project Two",
-    description:
-      "A short description of what this project does and the problem it solves.",
-    tags: ["Astro", "Tailwind"],
-    color: "bg-teal",
-    emoji: "📊",
-    link: "#",
-    repo: "#",
+    company: "EBUDDY PTE. LTD.",
+    title: "Monorepo migration & scalable web apps",
+    role: "Fullstack Software Engineer",
+    accent: "border-l-teal",
+    challenge:
+      "The team worked across multiple repos, which slowed down shared tooling, code review, and consistent versioning as the number of apps grew.",
+    built:
+      "Web apps with Next.js (front end) and Express.js (back end), implementing designs directly from Figma. Led the migration from 2 separate repos (frontend + backend) into a Turborepo monorepo with 1 shared package.",
+    impact:
+      "Faster CI builds via caching and a big jump in Lighthouse performance score after the front-end rework.",
+    stats: [
+      { value: "2 → 1", label: "repos consolidated into monorepo" },
+      { value: "20–30 → 60", label: "Lighthouse performance score" },
+      { value: "~40%", label: "faster CI builds (est., via caching)" },
+    ],
+    stack: [
+      "Next.js",
+      "Express.js",
+      "Turborepo",
+      "Figma",
+      "Git",
+      "Firebase",
+      "Material UI",
+      "Sentry",
+    ],
   },
   {
-    title: "Project Three",
-    description:
-      "A short description of what this project does and the problem it solves.",
-    tags: ["TypeScript", "API"],
-    color: "bg-pink",
-    emoji: "🎮",
-    link: "#",
-    repo: "#",
+    company: "Ifabula Digital Kreasi",
+    title: "Technical leadership across multiple client platforms",
+    role: "Technical Lead / Outsystems Developer",
+    accent: "border-l-purple",
+    challenge:
+      "Clients across different industries needed scalable web and mobile apps on tight deadlines, and the engineering team needed a clear technical point of contact to keep delivery on track.",
+    built:
+      "Led a team of 3 engineers across 4 client engagements end-to-end — technical strategy with stakeholders plus hands-on development on the Outsystems platform.",
+    impact:
+      "All 4 projects delivered on time, with 2 of the 4 clients returning for repeat work.",
+    stats: [
+      { value: "4", label: "client platforms delivered" },
+      { value: "3", label: "engineers led" },
+      { value: "2 of 4", label: "clients returned for repeat work" },
+    ],
+    stack: [
+      "Outsystems",
+      "Angular",
+      "Ionic",
+      "REST APIs",
+      "Agile",
+      "Mentorship",
+    ],
+    projectsList: [
+      "Mobile app for Salesforce lead generation",
+      "Car-bidding e-commerce platform (Outsystems)",
+      "CMS for Salesforce data processing",
+      "Financial services application",
+    ],
   },
 ];
 ---
@@ -36,48 +93,99 @@ const projects = [
 <section id="projects">
   <div class="container">
     <p class="eyebrow">Selected work</p>
-
-    <h2 class="section-title">Projects I'm proud of</h2>
-
+    <h2 class="section-title">Case studies</h2>
     <p class="section-sub">
-      Replace these with your real projects — name, description, tags, and
-      links.
+      Most of my work has been on internal, proprietary platforms — so instead
+      of live demos, here's the problem, what I built, and the impact for each.
     </p>
-
-    <div class="grid grid-cols-1 gap-6 md:grid-cols-3">
+    <div class="grid grid-cols-1 gap-5">
       {
         projects.map((p) => (
-          <div class="border-ink rounded-card shadow-pop border-[3px] bg-white p-5 transition-transform hover:-translate-y-1.5">
-            <div
-              class={`border-ink mb-4 flex h-[140px] w-full items-center justify-center rounded-xl border-[3px] text-5xl ${p.color}`}
-            >
-              {p.emoji}
+          <div
+            class={`border border-[#e4e1d8] ${p.accent} rounded-xl border-l-4 bg-white p-6`}
+          >
+            <div class="mb-4 flex flex-wrap items-start justify-between gap-2">
+              <div>
+                <p class="text-[0.78rem] font-semibold tracking-wide text-[#8a8298] uppercase">
+                  {p.company}
+                </p>
+                <h3 class="mt-0.5 text-[1.2rem]">{p.title}</h3>
+              </div>
+              <span class="rounded-full border border-[#e4e1d8] px-2.5 py-1 text-[0.78rem] font-semibold whitespace-nowrap text-[#5c5470]">
+                {p.role}
+              </span>
             </div>
 
-            <h3 class="mb-2 text-[1.25rem]">{p.title}</h3>
+            <div class="grid grid-cols-1 gap-5 text-[0.92rem] text-[#5c5470] md:grid-cols-3">
+              <div>
+                <p class="text-ink mb-1.5 font-semibold">Challenge</p>
+                <p>{p.challenge}</p>
+              </div>
+              <div>
+                <p class="text-ink mb-1.5 font-semibold">What I built</p>
+                <p>{p.built}</p>
+              </div>
+              <div>
+                <p class="text-ink mb-1.5 font-semibold">Impact</p>
+                <p>{p.impact}</p>
+                {p.stats && (
+                  <div class="mt-3 flex flex-wrap gap-2">
+                    {p.stats.map((s) => (
+                      <div class="rounded-lg bg-[#f7f5ee] px-3 py-2">
+                        <p class="text-coral text-[1.05rem] leading-tight font-bold">
+                          {s.value}
+                        </p>
+                        <p class="text-[0.72rem] leading-tight text-[#8a8298]">
+                          {s.label}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
 
-            <p class="mb-4 text-[0.95rem] text-[#5c5470]">{p.description}</p>
+            {p.projectsList && (
+              <div class="mt-4 border-t border-dashed border-[#e4e1d8] pt-4">
+                <p class="text-ink mb-2 text-[0.92rem] font-semibold">
+                  Representative projects
+                </p>
+                <ul class="grid grid-cols-1 gap-1.5 text-[0.9rem] text-[#5c5470] sm:grid-cols-2">
+                  {p.projectsList.map((item) => (
+                    <li class="flex items-start gap-2">
+                      <Icon
+                        name="tabler:point-filled"
+                        class="text-purple mt-1.5 h-3 w-3 shrink-0"
+                      />
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
 
-            <div class="mb-4 flex flex-wrap gap-2">
-              {p.tags.map((t) => (
-                <span class="text-purple rounded-full bg-[#f1ebff] px-2.5 py-1 text-[0.78rem] font-bold">
+            <div class="mt-4 flex flex-wrap gap-2 border-t border-dashed border-[#e4e1d8] pt-4">
+              {p.stack.map((t) => (
+                <span class="rounded-full border border-[#e4e1d8] px-2.5 py-0.5 text-[0.78rem] font-medium text-[#5c5470]">
                   {t}
                 </span>
               ))}
-            </div>
-
-            <div class="flex gap-4 text-[0.9rem] font-bold">
-              <a href={p.link} class="hover:text-coral transition-colors">
-                Live demo →
-              </a>
-
-              <a href={p.repo} class="hover:text-coral transition-colors">
-                Code →
-              </a>
             </div>
           </div>
         ))
       }
     </div>
+    <p
+      class="mt-6 flex flex-wrap items-center gap-2 text-[0.85rem] text-[#5c5470]"
+    >
+      <Icon name="tabler:sparkles" class="text-purple h-4 w-4 shrink-0" />
+      Across all of these, I lean on Claude, ChatGPT, and GitHub Copilot in VS Code
+      to speed up development without skipping review.
+    </p>
+    <p class="mt-2 flex items-center gap-2 text-[0.85rem] text-[#8a8298]">
+      <Icon name="tabler:lock" class="h-4 w-4" />
+      Screenshots and code aren't shown since these are internal/client platforms
+      — happy to go deeper on any of these in an interview.
+    </p>
   </div>
 </section>

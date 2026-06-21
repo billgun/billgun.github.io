@@ -1,9 +1,8 @@
 ---
 const email = "billgun.dev@gmail.com";
-
 const socials = [
   { label: "GitHub", href: "https://github.com/billgun" },
-  { label: "LinkedIn", href: "https://linkedin.com/in/your-handle" },
+  { label: "LinkedIn", href: "https://linkedin.com/in/billgun" },
 ];
 ---
 
@@ -13,28 +12,18 @@ const socials = [
     style="opacity: 0.25;"
   >
   </div>
-
   <div class="relative z-10 container mx-auto max-w-[640px]">
     <p class="eyebrow">Let's talk</p>
-
     <h2 class="section-title">Got a project in mind?</h2>
-
     <p class="section-sub mx-auto">
       I'm always open to chatting about new opportunities, collabs, or just tech
       (or games) in general. Drop me a message!
     </p>
-
     <div class="flex flex-wrap justify-center gap-3.5">
-      <a href={`mailto:${email}`} class="btn"> Email me ✉️ </a>
-
+      <a href={`mailto:${email}`} class="btn">Email me ✉️</a>
       {
         socials.map((s) => (
-          <a
-            href={s.href}
-            target="_blank"
-            rel="noopener noreferrer"
-            class="btn secondary"
-          >
+          <a href={s.href} target="_blank" rel="noopener" class="btn secondary">
             {s.label}
           </a>
         ))
