@@ -1,0 +1,105 @@
+---
+import { Icon } from 'astro-icon/components';
+
+const WORKER_URL = 'https://ask-me-worker.billgun.workers.dev';
+---
+
+<div id="ask-me-root" class="fixed bottom-7 left-7 z-60">
+  <!-- Closed state: floating bubble button -->
+  <button
+    id="ask-me-toggle"
+    aria-label="Ask AI about Billy"
+    class="w-13 h-13 rounded-full border-[3px] border-ink bg-purple shadow-pop flex items-center justify-center cursor-pointer transition-transform hover:-translate-y-0.5"
+  >
+    <Icon name="tabler:message-chatbot" class="w-6 h-6 text-white" />
+  </button>
+
+  <!-- Open state: chat panel -->
+  <div
+    id="ask-me-panel"
+    class="hidden absolute bottom-16 left-0 w-[320px] max-h-[440px] border-[3px] border-ink rounded-card bg-white shadow-pop flex flex-col overflow-hidden"
+  >
+    <div class="bg-purple border-b-[3px] border-ink px-4 py-3 flex items-center justify-between">
+      <p class="font-bold text-white text-[0.95rem]">Ask about Billy 🤖</p>
+      <button id="ask-me-close" aria-label="Close" class="text-white text-lg leading-none cursor-pointer">✕</button>
+    </div>
+
+    <div id="ask-me-messages" class="flex-1 overflow-y-auto p-4 flex flex-col gap-3 text-[0.88rem]">
+      <div class="bg-[#f1ebff] text-ink rounded-xl px-3 py-2 self-start max-w-[85%]">
+        Hi! I'm an AI trained on Billy's resume — ask me about his experience, skills, or projects.
+      </div>
+    </div>
+
+    <form id="ask-me-form" class="border-t-[3px] border-ink p-3 flex gap-2">
+      <input
+        id="ask-me-input"
+        type="text"
+        placeholder="e.g. Does Billy know React?"
+        maxlength="500"
+        autocomplete="off"
+        class="flex-1 border border-[#e4e1d8] rounded-full px-3 py-2 text-[0.85rem] focus:outline-none focus:border-purple"
+      />
+      <button
+        type="submit"
+        id="ask-me-send"
+        class="w-9 h-9 rounded-full bg-yellow border-[2px] border-ink flex items-center justify-center shrink-0 cursor-pointer disabled:opacity-50"
+      >
+        <Icon name="tabler:send" class="w-4 h-4" />
+      </button>
+    </form>
+  </div>
+</div>
+
+<script define:vars={{ WORKER_URL }}>
+  const toggle = document.getElementById('ask-me-toggle');
+  const panel = document.getElementById('ask-me-panel');
+  const closeBtn = document.getElementById('ask-me-close');
+  const form = document.getElementById('ask-me-form');
+  const input = document.getElementById('ask-me-input');
+  const sendBtn = document.getElementById('ask-me-send');
+  const messages = document.getElementById('ask-me-messages');
+
+  function addMessage(text, who) {
+    const bubble = document.createElement('div');
+    bubble.textContent = text;
+    bubble.className =
+      who === 'user'
+        ? 'bg-coral text-white rounded-xl px-3 py-2 self-end max-w-[85%]'
+        : 'bg-[#f1ebff] text-ink rounded-xl px-3 py-2 self-start max-w-[85%]';
+    messages?.appendChild(bubble);
+    if (messages) messages.scrollTop = messages.scrollHeight;
+    return bubble;
+  }
+
+  toggle?.addEventListener('click', () => {
+    panel?.classList.toggle('hidden');
+  });
+  closeBtn?.addEventListener('click', () => {
+    panel?.classList.add('hidden');
+  });
+
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const question = input?.value?.trim();
+    if (!question) return;
+
+    addMessage(question, 'user');
+    input.value = '';
+    sendBtn.disabled = true;
+    const thinking = addMessage('Thinking…', 'bot');
+
+    try {
+      const res = await fetch(WORKER_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ question }),
+      });
+      const data = await res.json();
+      thinking.textContent = data.answer || data.error || "Something went wrong — try again.";
+    } catch (err) {
+      thinking.textContent = "Couldn't reach the AI right now — try again in a bit.";
+    } finally {
+      sendBtn.disabled = false;
+    }
+  });
+</script>
