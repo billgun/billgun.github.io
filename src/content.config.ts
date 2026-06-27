@@ -1,6 +1,5 @@
-import { defineCollection } from "astro:content";
+import { defineCollection, z } from "astro:content";
 import { glob } from "astro/loaders";
-import { z } from "astro/zod";
 
 const blog = defineCollection({
   loader: glob({ pattern: "**/*.md", base: "./src/content/blog" }),
@@ -24,6 +23,7 @@ const games = defineCollection({
     rating: z.number().min(1).max(10).optional(),
     startedDate: z.coerce.date().optional(),
     finishedDate: z.coerce.date().optional(),
+    blogSlug: z.string().optional(),
   }),
 });
 

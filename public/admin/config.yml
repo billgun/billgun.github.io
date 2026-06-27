@@ -98,8 +98,15 @@ collections:
           required: false,
         }
       - {
+          label: "Blog Post Slug",
+          name: "blogSlug",
+          widget: "string",
+          required: false,
+          hint: "If you wrote a full blog write-up about this game, enter its slug here (the blog post's filename without .md, e.g. elden-ring-review). Leave blank if there's no write-up.",
+        }
+      - {
           label: "Review",
           name: "body",
           widget: "markdown",
-          hint: "Your personal thoughts/review of the game",
+          hint: "Your short personal thoughts/review of the game (shown on the card itself)",
         }

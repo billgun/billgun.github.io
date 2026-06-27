@@ -57,60 +57,76 @@ needs to answer personally.`;
 
 function corsHeaders(origin: string) {
   return {
-    'Access-Control-Allow-Origin': origin,
-    'Access-Control-Allow-Methods': 'POST, OPTIONS',
-    'Access-Control-Allow-Headers': 'Content-Type',
+    "Access-Control-Allow-Origin": origin,
+    "Access-Control-Allow-Methods": "POST, OPTIONS",
+    "Access-Control-Allow-Headers": "Content-Type",
   };
 }
 
 export default {
   async fetch(request: Request, env: Env): Promise<Response> {
-    const origin = env.ALLOWED_ORIGIN || '*';
+    const origin = env.ALLOWED_ORIGIN || "*";
 
-    if (request.method === 'OPTIONS') {
+    if (request.method === "OPTIONS") {
       return new Response(null, { headers: corsHeaders(origin) });
     }
 
-    if (request.method !== 'POST') {
-      return new Response('Method not allowed', { status: 405, headers: corsHeaders(origin) });
+    if (request.method !== "POST") {
+      return new Response("Method not allowed", {
+        status: 405,
+        headers: corsHeaders(origin),
+      });
     }
 
     try {
       const { question } = await request.json<{ question?: string }>();
 
-      if (!question || typeof question !== 'string' || question.trim().length === 0) {
-        return new Response(JSON.stringify({ error: 'Missing question' }), {
+      if (
+        !question ||
+        typeof question !== "string" ||
+        question.trim().length === 0
+      ) {
+        return new Response(JSON.stringify({ error: "Missing question" }), {
           status: 400,
-          headers: { 'Content-Type': 'application/json', ...corsHeaders(origin) },
+          headers: {
+            "Content-Type": "application/json",
+            ...corsHeaders(origin),
+          },
         });
       }
 
       if (question.length > 500) {
-        return new Response(JSON.stringify({ error: 'Question too long' }), {
+        return new Response(JSON.stringify({ error: "Question too long" }), {
           status: 400,
-          headers: { 'Content-Type': 'application/json', ...corsHeaders(origin) },
+          headers: {
+            "Content-Type": "application/json",
+            ...corsHeaders(origin),
+          },
         });
       }
 
-      const result = await env.AI.run('@cf/meta/llama-3.1-8b-instruct', {
-        messages: [
-          { role: 'system', content: SYSTEM_PROMPT },
-          { role: 'user', content: question },
-        ],
-        max_tokens: 256,
-      });
+      const result = await env.AI.run(
+        "@cf/meta/llama-3.3-70b-instruct-fp8-fast",
+        {
+          messages: [
+            { role: "system", content: SYSTEM_PROMPT },
+            { role: "user", content: question },
+          ],
+          max_tokens: 256,
+        },
+      );
 
       const answer =
         (result as { response?: string }).response?.trim() ||
         "Sorry, I couldn't come up with an answer for that — try the contact page instead.";
 
       return new Response(JSON.stringify({ answer }), {
-        headers: { 'Content-Type': 'application/json', ...corsHeaders(origin) },
+        headers: { "Content-Type": "application/json", ...corsHeaders(origin) },
       });
     } catch (err) {
-      return new Response(JSON.stringify({ error: 'Something went wrong' }), {
+      return new Response(JSON.stringify({ error: "Something went wrong" }), {
         status: 500,
-        headers: { 'Content-Type': 'application/json', ...corsHeaders(origin) },
+        headers: { "Content-Type": "application/json", ...corsHeaders(origin) },
       });
     }
   },

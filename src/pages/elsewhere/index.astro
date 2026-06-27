@@ -1,0 +1,276 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
+import { Icon } from "astro-icon/components";
+import { getCollection, render } from "astro:content";
+import { getRawgGame } from "@/lib/rawg";
+
+const streamLinks = [
+  {
+    label: "Twitch",
+    href: "https://twitch.tv/your-handle",
+    icon: "logos:twitch",
+  },
+  {
+    label: "YouTube",
+    href: "https://youtube.com/@your-handle",
+    icon: "logos:youtube-icon",
+  },
+  {
+    label: "Steam",
+    href: "https://steamcommunity.com/id/your-handle",
+    icon: "logos:steam",
+  },
+];
+
+const interests = [
+  {
+    title: "Gaming & Streaming",
+    icon: "🎮",
+    color: "bg-coral",
+    desc: "I've been gaming way longer than I've been writing code. These days I split free time between ranked grinds and streaming for fun — same focus, different keyboard shortcuts.",
+  },
+  {
+    title: "Final Fantasy XIV",
+    icon: "⚔️",
+    color: "bg-teal",
+    desc: "My current main game — currently working through the latest expansion's story at my own pace.",
+  },
+  {
+    title: "Japanese Language",
+    icon: "🇯🇵",
+    color: "bg-purple",
+    desc: "Passed JLPT N4 and still actively learning — partly to read games and manga in their original language, partly because I just enjoy the process.",
+  },
+];
+
+const allGames = await getCollection("games");
+
+const gamesWithCovers = await Promise.all(
+  allGames.map(async (game) => {
+    const rawg = await getRawgGame(game.data.rawgSlug);
+    const { Content } = await render(game);
+    return { ...game, rawg, Content };
+  }),
+);
+
+const statusOrder = { playing: 0, finished: 1, dropped: 2 } as const;
+gamesWithCovers.sort((a, b) => {
+  const statusDiff = statusOrder[a.data.status] - statusOrder[b.data.status];
+  if (statusDiff !== 0) return statusDiff;
+  const aDate = a.data.finishedDate ?? a.data.startedDate ?? new Date(0);
+  const bDate = b.data.finishedDate ?? b.data.startedDate ?? new Date(0);
+  return bDate.valueOf() - aDate.valueOf();
+});
+
+const statusMeta: Record<
+  string,
+  { label: string; chip: string; border: string }
+> = {
+  playing: { label: "Playing", chip: "bg-teal", border: "border-teal" },
+  finished: { label: "Finished", chip: "bg-coral", border: "border-coral" },
+  dropped: { label: "Dropped", chip: "bg-purple", border: "border-purple" },
+};
+
+const filters = [
+  { key: "all", label: "All" },
+  { key: "playing", label: "Playing" },
+  { key: "finished", label: "Finished" },
+  { key: "dropped", label: "Dropped" },
+];
+---
+
+<Layout
+  title="Elsewhere — Billy Gunawan"
+  description="Get to know Billy outside of work: gaming, streaming, Final Fantasy XIV, and learning Japanese."
+>
+  <Header />
+
+  <section class="relative overflow-hidden pt-[100px] pb-16">
+    <div class="blob bg-yellow -top-16 -right-12 h-72 w-72"></div>
+    <div class="relative z-10 container max-w-[720px]">
+      <p class="eyebrow">Off the clock</p>
+      <h1 class="mb-6 text-[clamp(2rem,5vw,3.2rem)]">Elsewhere</h1>
+      <p class="mb-7 max-w-[560px] text-[1.1rem] text-[#5c5470]">
+        Work is only part of the story. Here's what I'm into when I'm not
+        shipping features — mostly games and a few nerdy side quests.
+      </p>
+      <div class="flex flex-wrap gap-3">
+        {
+          streamLinks.map((l) => (
+            <a
+              href={l.href}
+              target="_blank"
+              rel="noopener"
+              class="border-ink shadow-pop flex items-center gap-2 rounded-full border-[3px] bg-white px-4 py-2 text-[0.92rem] font-semibold transition-transform hover:-translate-y-0.5"
+            >
+              <Icon name={l.icon} class="h-5 w-5" />
+              {l.label}
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <div class="grid grid-cols-1 gap-6 md:grid-cols-3">
+        {
+          interests.map((item) => (
+            <div class="border-ink rounded-card shadow-pop border-[3px] bg-white p-6">
+              <div
+                class={`border-ink mb-4 flex h-14 w-14 items-center justify-center rounded-2xl border-[3px] text-2xl ${item.color}`}
+              >
+                {item.icon}
+              </div>
+              <h3 class="mb-2 text-[1.25rem]">{item.title}</h3>
+              <p class="text-[#5c5470]">{item.desc}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <p class="eyebrow">Game log</p>
+      <h2 class="section-title">Games I've played</h2>
+      <p class="section-sub">
+        What I'm currently grinding, what I finished, and what I bounced off of
+        — with honest takes on each.
+      </p>
+
+      <div class="mb-7 flex flex-wrap gap-2" id="game-filters">
+        {
+          filters.map((f, i) => (
+            <button
+              data-filter={f.key}
+              class={`game-filter-btn border-ink rounded-full border-[2px] px-4 py-2 text-[0.85rem] font-bold transition-colors ${
+                i === 0 ? "bg-ink text-white" : "text-ink bg-white"
+              }`}
+            >
+              {f.label}
+            </button>
+          ))
+        }
+      </div>
+
+      <div
+        class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3"
+        id="games-grid"
+      >
+        {
+          gamesWithCovers.map(({ data, rawg, Content }) => {
+            const meta = statusMeta[data.status];
+            const CardTag = data.blogSlug ? "a" : "div";
+            const cardProps = data.blogSlug
+              ? { href: `/blog/${data.blogSlug}` }
+              : {};
+            return (
+              <CardTag
+                {...cardProps}
+                class={`game-card border-[3px] ${meta.border} rounded-card shadow-pop flex flex-col overflow-hidden bg-white transition-transform hover:-translate-y-1 ${data.blogSlug ? "cursor-pointer" : ""}`}
+                data-status={data.status}
+              >
+                <div class="border-ink relative flex h-44 w-full items-center justify-center overflow-hidden border-b-[3px] bg-[#f1ebff]">
+                  {rawg?.backgroundImage ? (
+                    <img
+                      src={rawg.backgroundImage}
+                      alt={data.title}
+                      class="h-full w-full object-cover"
+                    />
+                  ) : (
+                    <span class="text-4xl">🎮</span>
+                  )}
+                  <span
+                    class={`absolute top-2.5 left-2.5 rounded-full px-2.5 py-1 text-[0.72rem] font-bold tracking-wide uppercase ${meta.chip} text-ink`}
+                  >
+                    {meta.label}
+                  </span>
+                  {data.rating && (
+                    <span class="absolute top-2.5 right-2.5 flex items-center gap-1 rounded-full bg-white/90 px-2 py-1 text-[0.78rem] font-bold">
+                      <Icon
+                        name="tabler:star-filled"
+                        class="text-yellow h-3.5 w-3.5"
+                      />
+                      {data.rating}/10
+                    </span>
+                  )}
+                </div>
+                <div class="flex flex-1 flex-col p-5">
+                  <h3 class="mb-2 text-[1.1rem]">{data.title}</h3>
+                  <div class="mb-3 text-[0.9rem] text-[#5c5470] [&_p]:mb-2">
+                    <Content />
+                  </div>
+                  <div class="mt-auto flex items-center justify-between gap-2 border-t border-dashed border-[#e4e1d8] pt-3">
+                    <div class="flex items-center gap-1.5 text-[0.78rem] text-[#8a8298]">
+                      <Icon name="tabler:calendar" class="h-3.5 w-3.5" />
+                      {data.startedDate && (
+                        <span>
+                          {data.startedDate.toLocaleDateString("en-US", {
+                            year: "numeric",
+                            month: "short",
+                          })}
+                        </span>
+                      )}
+                      {data.finishedDate && (
+                        <span>
+                          {" "}
+                          →{" "}
+                          {data.finishedDate.toLocaleDateString("en-US", {
+                            year: "numeric",
+                            month: "short",
+                          })}
+                        </span>
+                      )}
+                    </div>
+                    {data.blogSlug ? (
+                      <span class="text-purple flex shrink-0 items-center gap-1 text-[0.75rem] font-bold">
+                        <Icon name="tabler:article" class="h-3.5 w-3.5" />
+                        Full review
+                        <Icon name="tabler:arrow-right" class="h-3.5 w-3.5" />
+                      </span>
+                    ) : (
+                      <span class="shrink-0 text-[0.72rem] text-[#c4c0b4] italic">
+                        No write-up yet
+                      </span>
+                    )}
+                  </div>
+                </div>
+              </CardTag>
+            );
+          })
+        }
+      </div>
+    </div>
+  </section>
+
+  <Footer />
+</Layout>
+
+<script>
+  const buttons = document.querySelectorAll(".game-filter-btn");
+  const cards = document.querySelectorAll(".game-card");
+
+  buttons.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const filter = btn.getAttribute("data-filter");
+
+      buttons.forEach((b) => {
+        b.classList.remove("bg-ink", "text-white");
+        b.classList.add("bg-white", "text-ink");
+      });
+      btn.classList.add("bg-ink", "text-white");
+      btn.classList.remove("bg-white", "text-ink");
+
+      cards.forEach((card) => {
+        const status = card.getAttribute("data-status");
+        const show = filter === "all" || status === filter;
+        card.classList.toggle("hidden", !show);
+      });
+    });
+  });
+</script>
