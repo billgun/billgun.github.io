@@ -1,7 +1,8 @@
 ---
-import Layout from "./Layout.astro";
-import Header from "../components/Header.astro";
-import Footer from "../components/Footer.astro";
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
+import { Icon } from "astro-icon/components";
 
 interface Props {
   title: string;
@@ -9,136 +10,99 @@ interface Props {
   pubDate: Date;
   updatedDate?: Date;
   tags?: string[];
+  heroImage?: string;
 }
 
-const { title, description, pubDate, updatedDate, tags = [] } = Astro.props;
+const {
+  title,
+  description,
+  pubDate,
+  updatedDate,
+  tags = [],
+  heroImage,
+} = Astro.props;
 
 const formattedDate = pubDate.toLocaleDateString("en-US", {
   year: "numeric",
   month: "long",
   day: "numeric",
 });
+
+const updatedFormatted = updatedDate?.toLocaleDateString("en-US", {
+  year: "numeric",
+  month: "long",
+  day: "numeric",
+});
 ---
 
-<Layout title={`${title} — Bill Gunawan`} description={description}>
+<Layout title={`${title} — Billy Gunawan`} description={description}>
   <Header />
-  <article class="post">
-    <div class="post-container container">
-      <a href="/blog" class="back-link">← Back to blog</a>
-      <p class="post-date">{formattedDate}</p>
-      <h1 class="post-title">{title}</h1>
+
+  <article class="py-16 pb-24">
+    <div class="container max-w-[720px]">
+      <a
+        href="/blog"
+        class="text-purple hover:text-coral mb-10 inline-flex items-center gap-1.5 font-bold transition-colors"
+      >
+        <Icon name="tabler:arrow-left" class="h-4 w-4" />
+        Back to blog
+      </a>
+
+      {
+        heroImage && (
+          <div class="rounded-card border-ink shadow-pop mb-8 w-full overflow-hidden border-[3px]">
+            <img
+              src={heroImage}
+              alt={title}
+              class="max-h-[420px] w-full object-cover"
+            />
+          </div>
+        )
+      }
+
+      <p
+        class="mb-2 text-[0.82rem] font-bold tracking-wide text-[#8a8298] uppercase"
+      >
+        {formattedDate}
+        {
+          updatedFormatted && (
+            <span class="ml-2 text-[#b0aabb]">
+              · Updated {updatedFormatted}
+            </span>
+          )
+        }
+      </p>
+
+      <h1 class="mb-4 text-[clamp(2rem,4vw,2.6rem)]">{title}</h1>
+
+      {
+        description && (
+          <p class="mb-5 text-[1.05rem] text-[#5c5470]">{description}</p>
+        )
+      }
+
       {
         tags.length > 0 && (
-          <div class="post-tags">
+          <div class="mb-10 flex flex-wrap gap-2">
             {tags.map((t) => (
-              <span class="tag">{t}</span>
+              <a
+                href={`/blog?tag=${t}`}
+                class="text-purple hover:bg-purple rounded-full bg-[#f1ebff] px-2.5 py-1 text-[0.78rem] font-bold transition-colors hover:text-white"
+              >
+                {t}
+              </a>
             ))}
           </div>
         )
       }
-      <div class="post-content">
+
+      <div
+        class="prose prose-lg prose-headings:font-heading prose-headings:text-ink prose-h2:text-[1.5rem] prose-h3:text-[1.2rem] prose-p:text-[#2c2440] prose-p:leading-[1.8] prose-a:text-coral prose-a:underline prose-a:underline-offset-[3px] prose-a:no-underline hover:prose-a:text-purple prose-code:text-purple prose-code:bg-[#f1ebff] prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded-md prose-code:font-normal prose-code:before:content-none prose-code:after:content-none prose-pre:bg-[#1f1633] prose-pre:text-[#f5f3ff] prose-pre:border-[3px] prose-pre:border-ink prose-pre:rounded-2xl prose-blockquote:border-l-yellow prose-blockquote:border-l-4 prose-blockquote:text-[#5c5470] prose-blockquote:italic prose-blockquote:not-italic prose-img:rounded-2xl prose-img:border-[3px] prose-img:border-ink prose-img:shadow-pop prose-th:bg-[#f1ebff] prose-th:font-bold prose-hr:border-dashed prose-hr:opacity-20 max-w-none"
+      >
         <slot />
       </div>
     </div>
   </article>
+
   <Footer />
 </Layout>
-
-<style>
-  .post {
-    padding: 60px 0 100px;
-  }
-  .post-container {
-    max-width: 700px;
-  }
-  .back-link {
-    display: inline-block;
-    font-weight: 700;
-    color: var(--color-purple);
-    margin-bottom: 30px;
-  }
-  .back-link:hover {
-    color: var(--color-coral);
-  }
-  .post-date {
-    font-size: 0.85rem;
-    font-weight: 700;
-    color: #8a8298;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    margin-bottom: 10px;
-  }
-  .post-title {
-    font-size: clamp(2rem, 4vw, 2.6rem);
-    margin-bottom: 18px;
-  }
-  .post-tags {
-    display: flex;
-    gap: 8px;
-    margin-bottom: 36px;
-  }
-  .tag {
-    font-size: 0.78rem;
-    font-weight: 700;
-    background: #f1ebff;
-    color: var(--color-purple);
-    padding: 4px 10px;
-    border-radius: 999px;
-  }
-  .post-content {
-    font-size: 1.05rem;
-    color: #2c2440;
-  }
-  .post-content :global(h2) {
-    font-size: 1.5rem;
-    margin: 40px 0 16px;
-  }
-  .post-content :global(h3) {
-    font-size: 1.2rem;
-    margin: 30px 0 12px;
-  }
-  .post-content :global(p) {
-    margin: 0 0 18px;
-  }
-  .post-content :global(ul),
-  .post-content :global(ol) {
-    margin: 0 0 18px;
-    padding-left: 24px;
-  }
-  .post-content :global(li) {
-    margin-bottom: 8px;
-  }
-  .post-content :global(a) {
-    color: var(--color-coral);
-    text-decoration: underline;
-  }
-  .post-content :global(code) {
-    background: #f1ebff;
-    padding: 2px 6px;
-    border-radius: 6px;
-    font-size: 0.9em;
-  }
-  .post-content :global(pre) {
-    background: #1f1633;
-    color: #f5f3ff;
-    padding: 18px;
-    border-radius: 12px;
-    overflow-x: auto;
-    margin-bottom: 18px;
-  }
-  .post-content :global(pre code) {
-    background: none;
-    padding: 0;
-  }
-  .post-content :global(blockquote) {
-    border-left: 4px solid var(--color-yellow);
-    padding-left: 18px;
-    color: #5c5470;
-    margin: 0 0 18px;
-  }
-  .post-content :global(img) {
-    border-radius: 14px;
-    border: 3px solid var(--color-ink);
-    margin: 24px 0;
-  }
-</style>
